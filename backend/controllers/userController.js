@@ -6,7 +6,7 @@ import User from '../models/useModel.js';
 // @access Public
 
 const authUser = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: 'Auth User' });
+  res.sendStatus(200).json({ message: 'Auth User' });
 });
 
 // @desc   Register a new user
@@ -17,12 +17,12 @@ const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
   const userExists = await User.findOne({ email });
+
   if (userExists) {
     res.status(400);
     throw new Error('User already exists');
   }
 
-  //create a user
   const user = await User.create({
     name,
     email,
@@ -30,14 +30,14 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   if (user) {
-    res.send(201).json({
+    res.status(201).json({
       _id: user._id,
       name: user.name,
       email: user.email,
     });
   } else {
     res.status(400);
-    throw new Error('Invalid userdata');
+    throw new Error('Invalid user data');
   }
 });
 
@@ -46,7 +46,7 @@ const registerUser = asyncHandler(async (req, res) => {
 // @access Public
 
 const logoutUser = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: 'Logout User' });
+  res.sendStatus(200).json({ message: 'Logout User' });
 });
 
 // @desc   Get user profile
@@ -54,7 +54,7 @@ const logoutUser = asyncHandler(async (req, res) => {
 // @access Private
 
 const getUserProfile = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: 'User profile' });
+  res.sendStatus(200).json({ message: 'User profile' });
 });
 
 // @desc   Update user profile
@@ -62,7 +62,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
 // @access Private
 
 const UpdateUserProfile = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: 'Update User profile' });
+  res.sendStatus(200).json({ message: 'Update User profile' });
 });
 
 export {
